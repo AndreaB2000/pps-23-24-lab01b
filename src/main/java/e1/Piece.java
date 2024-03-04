@@ -12,5 +12,11 @@ public interface Piece {
      */
     int getY();
 
+    /**
+     * Moves the piece in the direction expressed by parameters.
+     * 
+     * @param deltaX - Offset on X axis
+     * @param deltaY - Offset on Y axis
+     */
     void move(final int deltaX, final int deltaY);
 }

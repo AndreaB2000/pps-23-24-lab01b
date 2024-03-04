@@ -68,7 +68,22 @@ public class LogicTest {
         );
     }
 
-    // Tests on the hit function are missing
+    // This test does not cover all possible moves of the piece
+    @Test
+    public void testHitMovement() {
+        var knightPositionBeforeHit = this.getKnightPosition();
+        int deltaX = (knightPositionBeforeHit.getX() > this.size / 2) ? -1 : 1;
+        int deltaY = (knightPositionBeforeHit.getY() > this.size / 2) ? -2 : 2;
+        this.logics.hit(
+            knightPositionBeforeHit.getX() + deltaX,
+            knightPositionBeforeHit.getY() + deltaY
+        );
+        var knightPositionAfterHit = this.getKnightPosition();
+        assertAll(
+            () -> assertEquals(knightPositionBeforeHit.getX() + deltaX, knightPositionAfterHit.getX()),
+            () -> assertEquals(knightPositionBeforeHit.getY() + deltaY, knightPositionAfterHit.getY())
+        );
+    }
 
     // Additional tests after small additions to LogicsImpl
 

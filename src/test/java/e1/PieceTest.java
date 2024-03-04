@@ -13,7 +13,7 @@ public class PieceTest {
     private final int pieceInitialX = 1;
     private final int pieceInitialY = 1;
     private final int deltaX = 1;
-    private final int deltaY = 1;
+    private final int deltaY = 2;
 
     @BeforeEach
     public void beforeEach() {

@@ -1,6 +1,6 @@
 package e1;
 
-public class PieceImpl implements Piece {
+public class PieceImpl implements Piece, UnmovablePiece {
 
     private Pair<Integer, Integer> coordinates;
 
