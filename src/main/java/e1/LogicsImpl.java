@@ -4,21 +4,23 @@ import java.util.*;
 
 public class LogicsImpl implements Logics {
 	
-	private Pair<Integer,Integer> pawn;
-	private Pair<Integer,Integer> knight;
+	private Piece pawn;
+	private Piece knight;
 	private final Random random = new Random();
 	private int size;
 
 	public LogicsImpl(int size, Pair<Integer, Integer> pawnPosition, Pair<Integer, Integer> knightPosition) {
 		this.setSize(size);
-		this.pawn = new Pair<Integer,Integer>(pawnPosition.getX(), pawnPosition.getY());
-		this.knight = new Pair<Integer,Integer>(knightPosition.getX(), knightPosition.getY());
+		this.pawn = new PieceImpl(pawnPosition.getX(), pawnPosition.getY());
+		this.knight = new PieceImpl(knightPosition.getX(), knightPosition.getY());
 	}
 	 
     public LogicsImpl(int size) {
 		this.setSize(size);
-        this.pawn = this.randomEmptyPosition();
-        this.knight = this.randomEmptyPosition();	
+		var pawnPosition = this.randomEmptyPosition();
+		var knightPosition = this.randomEmptyPosition();
+        this.pawn = new PieceImpl(pawnPosition.getX(), pawnPosition.getY());
+        this.knight = new PieceImpl(knightPosition.getX(), knightPosition.getY());
     }
     
 	private void setSize(int size) {
@@ -43,7 +45,7 @@ public class LogicsImpl implements Logics {
 		int deltaX = row - this.knight.getX();
 		int deltaY = col - this.knight.getY();
 		if (deltaX != 0 && deltaY != 0 && Math.abs(deltaX) + Math.abs(deltaY) == 3) {
-			this.knight = new Pair<>(row,col);
+			this.knight.move(row, col);
 			return this.pawn.equals(this.knight);
 		}
 		return false;
@@ -51,11 +53,11 @@ public class LogicsImpl implements Logics {
 
 	@Override
 	public boolean hasKnight(int row, int col) {
-		return this.knight.equals(new Pair<>(row,col));
+		return this.knight.getX() == row && this.knight.getY() == col;
 	}
 
 	@Override
 	public boolean hasPawn(int row, int col) {
-		return this.pawn.equals(new Pair<>(row,col));
+		return this.pawn.getX() == row && this.pawn.getY() == col;
 	}
 }
