@@ -5,22 +5,36 @@ import java.util.*;
 public class LogicsImpl implements Logics {
 	
 	private UnmovablePiece pawn;
-	private Piece knight;
+	private MovablePiece knight;
 	private final Random random = new Random();
 	private int boardSize;
 
 	public LogicsImpl(int boardSize, Pair<Integer, Integer> pawnPosition, Pair<Integer, Integer> knightPosition) {
 		this.setBoardSize(boardSize);
-		this.pawn = new PieceImpl(pawnPosition.getX(), pawnPosition.getY());
-		this.knight = new PieceImpl(knightPosition.getX(), knightPosition.getY());
+		this.pawn = new UnmovablePieceImpl(pawnPosition.getX(), pawnPosition.getY());
+		this.knight = new AbstractMovablePiece(knightPosition.getX(), knightPosition.getY()) {
+			@Override
+			public boolean canMove(Pair<Integer, Integer> newPosition) {
+				var deltaX = newPosition.getX() - this.getX();
+				var deltaY = newPosition.getY() - this.getY();
+				return deltaX != 0 && deltaY != 0 && Math.abs(deltaX) + Math.abs(deltaY) == 3;
+			}
+		};
 	}
 	 
     public LogicsImpl(int boardSize) {
 		this.setBoardSize(boardSize);
 		var pawnPosition = this.randomEmptyPosition();
 		var knightPosition = this.randomEmptyPosition();
-        this.pawn = new PieceImpl(pawnPosition.getX(), pawnPosition.getY());
-        this.knight = new PieceImpl(knightPosition.getX(), knightPosition.getY());
+        this.pawn = new UnmovablePieceImpl(pawnPosition.getX(), pawnPosition.getY());
+		this.knight = new AbstractMovablePiece(knightPosition.getX(), knightPosition.getY()) {
+			@Override
+			public boolean canMove(Pair<Integer, Integer> newPosition) {
+				var deltaX = newPosition.getX() - this.getX();
+				var deltaY = newPosition.getY() - this.getY();
+				return deltaX != 0 && deltaY != 0 && Math.abs(deltaX) + Math.abs(deltaY) == 3;
+			}
+		};
     }
     
 	private void setBoardSize(int boardSize) {
@@ -45,14 +59,8 @@ public class LogicsImpl implements Logics {
 		if (row < 0 || column < 0 || row >= this.boardSize || column >= this.boardSize) {
 			throw new IndexOutOfBoundsException("Position must be inside of the board.");
 		}
-		// Below a compact way to express allowed moves for the knight
-		int deltaX = row - this.knight.getX();
-		int deltaY = column - this.knight.getY();
-		if (deltaX != 0 && deltaY != 0 && Math.abs(deltaX) + Math.abs(deltaY) == 3) {
-			this.knight.move(deltaX, deltaY);
-			return this.pawn.getX() == this.knight.getX() && this.pawn.getY() == this.knight.getY();
-		}
-		return false;
+		this.knight.move(new Pair<>(row, column));
+		return this.pawn.getX() == this.knight.getX() && this.pawn.getY() == this.knight.getY();
 	}
 
 	@Override

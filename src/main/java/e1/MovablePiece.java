@@ -1,6 +1,6 @@
 package e1;
 
-public interface Piece {
+public interface MovablePiece {
 
     /**
      * @return The X coordinate of the piece.
@@ -15,8 +15,8 @@ public interface Piece {
     /**
      * Moves the piece in the direction expressed by parameters.
      * 
-     * @param deltaX - Offset on X axis
+     * @param newPositionX - Offset on X axis
      * @param deltaY - Offset on Y axis
      */
-    void move(final int deltaX, final int deltaY);
+    void move(final Pair<Integer, Integer> newPosition);
 }
