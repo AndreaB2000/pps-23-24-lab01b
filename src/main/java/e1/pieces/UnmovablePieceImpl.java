@@ -1,4 +1,6 @@
-package e1;
+package e1.pieces;
+
+import e1.utils.Pair;
 
 public class UnmovablePieceImpl extends AbstractMovablePiece {
 
@@ -6,8 +8,8 @@ public class UnmovablePieceImpl extends AbstractMovablePiece {
         super();
     }
 
-    public UnmovablePieceImpl(final int x, final int y) {
-        super(x, y);
+    protected UnmovablePieceImpl(final Pair<Integer, Integer> initialPosition) {
+        super(initialPosition);
     }
 
     @Override

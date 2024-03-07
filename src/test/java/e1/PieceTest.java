@@ -7,6 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import e1.pieces.AbstractMovablePiece;
+import e1.pieces.MovablePiece;
+import e1.utils.Pair;
+
 public class PieceTest {
 
     private MovablePiece piece;
@@ -19,7 +23,7 @@ public class PieceTest {
 
     @BeforeEach
     public void beforeEach() {
-        this.piece = new AbstractMovablePiece(this.pieceInitialX, this.pieceInitialY) {
+        this.piece = new AbstractMovablePiece(new Pair<>(this.pieceInitialX, this.pieceInitialY)) {
 			@Override
 			public boolean canMove(Pair<Integer, Integer> newPosition) {
 				var deltaX = newPosition.getX() - this.getX();

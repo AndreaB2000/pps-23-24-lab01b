@@ -1,6 +1,10 @@
 package e1;
 import org.junit.jupiter.api.*;
 
+import e1.logics.Logics;
+import e1.logics.LogicsImpl;
+import e1.utils.Pair;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LogicTest {
@@ -100,6 +104,6 @@ public class LogicTest {
        assertThrows(IllegalArgumentException.class, () -> {
         var wrongLogic = new LogicsImpl(1);
         wrongLogic.hasKnight(0, 0);
-       }); 
+       });
     }
 }

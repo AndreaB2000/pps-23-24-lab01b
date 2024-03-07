@@ -1,4 +1,6 @@
-package e1;
+package e1.pieces;
+
+import e1.utils.Pair;
 
 public interface MovablePiece {
 

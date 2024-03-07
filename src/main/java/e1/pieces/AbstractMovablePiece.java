@@ -1,15 +1,20 @@
-package e1;
+package e1.pieces;
+
+import e1.utils.Pair;
 
 public abstract class AbstractMovablePiece implements MovablePiece, UnmovablePiece {
 
     private Pair<Integer, Integer> coordinates;
 
-    public AbstractMovablePiece() {
+    protected AbstractMovablePiece() {
         this.coordinates = new Pair<>(0, 0);
     }
     
-    public AbstractMovablePiece(final int x, final int y) {
-        this.coordinates = new Pair<>(x, y);
+    protected AbstractMovablePiece(Pair<Integer, Integer> initialPosition) {
+        this.coordinates = new Pair<>(
+            initialPosition.getX(),
+            initialPosition.getY()
+        );
     }
 
     @Override
